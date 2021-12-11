@@ -10,6 +10,14 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      // Auth
+      "@auth/*": [ "src/auth/*" ],
+      // Guards
+      "@guards/*": [ "src/auth/guards/*" ],
+      // Config
+      "@configdata/*": [ "src/config/*" ],
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

@@ -14,9 +14,17 @@
       // Auth
       "@auth/*": [ "src/auth/*" ],
       // Guards
-      "@guards/*": [ "src/auth/guards/*" ],
+      "@guards/*": [ "src/guards/*" ],
+      // Broker
+      "@broker/*": [ "src/broker/*" ],
       // Config
       "@configdata/*": [ "src/config/*" ],
+      // Config
+      "@controllers/*": [ "src/controllers/*" ],
+      // Interceptors
+      "@interceptors/*": [ "src/interceptor/*" ],
+      // Dtos
+      "@dtos/*": [ "src/dtos/*" ],
     },
     "incremental": true,
     "skipLibCheck": true,

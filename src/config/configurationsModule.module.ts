@@ -13,7 +13,12 @@ import envConfig from './env-config';
       expandVariables: true,
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
-        //Conexión a postgress
+        //CONEXION SEGURIDAD
+        API_KEY: Joi.string().required(),
+        //Conexión a cloudAMQP
+        AMQP_URL: Joi.string().required(),
+        AMQP_QUEUE: Joi.string().required(),
+        AMQP_NAME: Joi.string().required(),
       }),
     }),
   ],

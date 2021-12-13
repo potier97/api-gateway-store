@@ -14,7 +14,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
 import {
   clientCreateTp,
   clientUpdateTp,
@@ -36,10 +35,10 @@ export class ClientController {
   constructor(@Inject(config().broker.name) private client: ClientProxy) {}
 
   @Post()
-  create(@Body() body: ClientesDto): Observable<any> {
+  async create(@Body() body: ClientesDto): Promise<any> {
     try {
       this.logger.log(`Creando registro de ${generalClientRoute}`);
-      return this.client.send<any>(clientCreateTp, body);
+      return this.client.send<any>(clientCreateTp, body).toPromise();
     } catch (e) {
       this.logger.error(`Error al crear registro de ${generalClientRoute}`);
       this.logger.error(`Error -> ${e} `);
@@ -55,13 +54,13 @@ export class ClientController {
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id', new ParseIntPipe()) id: number,
     @Body() body: UpdateClientesDto,
-  ): Observable<any> {
+  ): Promise<any> {
     try {
       this.logger.log(`Actualizando registro de ${generalClientRoute}`);
-      return this.client.send<any>(clientUpdateTp, { id, body });
+      return this.client.send<any>(clientUpdateTp, { id, body }).toPromise();
     } catch (e) {
       this.logger.error(
         `Error al actualizar registro de ${generalClientRoute}`,
@@ -79,10 +78,10 @@ export class ClientController {
   }
 
   @Delete(':id')
-  delete(@Param('id', new ParseIntPipe()) id: number): Observable<any> {
+  async delete(@Param('id', new ParseIntPipe()) id: number): Promise<any> {
     try {
       this.logger.log(`Eliminando registro de ${generalClientRoute}`);
-      return this.client.send<any>(clientDeleteTp, id);
+      return this.client.send<any>(clientDeleteTp, id).toPromise();
     } catch (e) {
       this.logger.error(`Error al eliminar registro de ${generalClientRoute}`);
       this.logger.error(`Error -> ${e} `);
@@ -98,10 +97,10 @@ export class ClientController {
   }
 
   @Get(':id')
-  getById(@Param('id', new ParseIntPipe()) id: number): Observable<any> {
+  async getById(@Param('id', new ParseIntPipe()) id: number): Promise<any> {
     try {
       this.logger.log(`Obteniendo un registro de ${generalClientRoute}`);
-      return this.client.send<any>(clientGetByIdTp, id);
+      return this.client.send<any>(clientGetByIdTp, id).toPromise();
     } catch (e) {
       this.logger.error(
         `Error al obtener un registro de ${generalClientRoute} `,
@@ -119,12 +118,12 @@ export class ClientController {
   }
 
   @Get()
-  getAll(): Observable<any> {
+  async getAll(): Promise<any> {
     try {
       this.logger.log(
         `Obteniendo todos los registros de ${generalClientRoute}`,
       );
-      return this.client.send(clientGetAllTp, {});
+      return this.client.send(clientGetAllTp, {}).toPromise();
     } catch (e) {
       this.logger.error(`Error al obtener registros de ${generalClientRoute}`);
       this.logger.error(`Error -> ${e} `);

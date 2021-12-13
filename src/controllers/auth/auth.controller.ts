@@ -25,10 +25,11 @@ export class AuthController {
   constructor(@Inject(config().broker.name) private client: ClientProxy) {}
 
   @Post()
-  authenticate(@Body() body: AuthDto): Observable<any> {
+  async authenticate(@Body() body: AuthDto): Promise<any> {
     try {
-      this.logger.log(`Loggiando en el sistema `);
-      return this.client.send<any>(loginUserTp, body);
+      this.logger.log(`Loggiando en el sistema`);
+      const result = await this.client.send<any>(loginUserTp, body).toPromise();
+      return result;
     } catch (e) {
       this.logger.error(`Error al crear registro de ${generalAuthRoute}`);
       this.logger.error(`Error -> ${e} `);

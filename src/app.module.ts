@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigurationsModule } from '@configdata/configurationsModule.module';
 import { ConfigService } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
 
 //Importados
 import { Configuration } from '@configdata/config.keys';
@@ -16,7 +17,7 @@ import { UserController } from '@controllers/user/user.controller';
 import { AppController } from './app.controller';
 
 @Module({
-  imports: [BrokerModule, ConfigurationsModule],
+  imports: [BrokerModule, ConfigurationsModule, HttpModule],
   controllers: [
     AuthController,
     BuyController,

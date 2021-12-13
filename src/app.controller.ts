@@ -1,21 +1,13 @@
-import {
-  Controller,
-  Get,
-  Inject,
-  UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 
 //Importados
 import { exampleTp } from '@configdata/path';
 import config from '@configdata/env-config';
-import { ValidateAccessTokenInterceptor } from '@interceptors/validate-access-token/validate-access-token.interceptor';
 import { ApiKeyGuard } from '@guards/api-key.guard';
 
 @UseGuards(ApiKeyGuard)
-@UseInterceptors(ValidateAccessTokenInterceptor)
 @Controller()
 export class AppController {
   constructor(@Inject(config().broker.name) private client: ClientProxy) {}

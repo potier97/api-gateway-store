@@ -7,8 +7,8 @@ const corsConfig: CorsOptions = {
   origin: '*',
   methods: 'GET,HEAD,PUT,POST,DELETE',
   preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  // allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['*'],
 };
 
 async function bootstrap() {

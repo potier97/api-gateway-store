@@ -31,7 +31,8 @@
     "heroku:login": "heroku login",
     "heroku:container": "heroku container:login",
     "heroku:container:push": "heroku container:push web -a api-gateway-store",
-    "heroku:container:release": "heroku container:release web -a api-gateway-store"
+    "heroku:container:release": "heroku container:release web -a api-gateway-store",
+    "heroku:complete": "yarn heroku:container && yarn heroku:container:push && yarn heroku:container:release"
   },
   "dependencies": {
     "@nestjs/axios": "^0.0.3",

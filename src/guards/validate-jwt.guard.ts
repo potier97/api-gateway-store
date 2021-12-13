@@ -4,7 +4,7 @@ import {
   Injectable,
   Inject,
 } from '@nestjs/common';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { Request } from 'express';
 
 //Importados
@@ -22,32 +22,14 @@ export class ValidateJWTGuard implements CanActivate {
     try {
       const request = context.switchToHttp().getRequest<Request>();
       const authHeader = request.header('Authorization') || 'null';
-      // console.log(authHeader);
-      return this.client.send('onValidateJWTTp', {
-        jwtData: authHeader,
-      });
-      // const algo = isValid.pipe((v: any) => {
-      //   console.log(v);
-      //   return v;
+      console.log(authHeader);
+      return true;
+      // return this.client.send('onValidateJWTTp', {
+      //   jwtData: authHeader,
       // });
-      // isValid.subscribe((v: any) => console.log(v));
-      // console.log(authHeader);
-      // console.log(isValid);
-      // console.log('algo ', algo);
-      // if (!isValid) {
-      //   throw new HttpException(
-      //     {
-      //       status: HttpStatus.UNAUTHORIZED,
-      //       message: 'Acceso restringido',
-      //     },
-      //     HttpStatus.UNAUTHORIZED,
-      //   );
-      // }
-      // return isValid;
     } catch (e) {
       console.log(e);
-      throw new RpcException('Invalid credentials.');
-      // return false;
+      return false;
     }
   }
 }

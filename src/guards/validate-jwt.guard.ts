@@ -22,11 +22,17 @@ export class ValidateJWTGuard implements CanActivate {
     try {
       const request = context.switchToHttp().getRequest<Request>();
       const authHeader = request.header('Authorization') || 'null';
-      console.log(authHeader);
-      return true;
-      // return this.client.send('onValidateJWTTp', {
-      //   jwtData: authHeader,
-      // });
+      if (authHeader !== 'null' || authHeader !== null) {
+        const tokens = authHeader.split(' ');
+        if (tokens[0] === 'Bearer' && tokens[1].length > 0) {
+          console.log(authHeader);
+          // return this.client.send('onValidateJWTTp', {
+          //   jwtData: authHeader,
+          // });
+          return true;
+        }
+      }
+      return false;
     } catch (e) {
       console.log(e);
       return false;
